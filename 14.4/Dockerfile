@@ -1,4 +1,4 @@
-FROM openjdk-7-jre
+FROM dockerfile/openjdk-7-jre
 
 ENV GO_DOWNLOAD_URL http://download01.thoughtworks.com/go/14.1.0/ga/go-agent-14.1.0-18882.deb
 

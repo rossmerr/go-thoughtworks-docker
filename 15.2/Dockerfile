@@ -11,6 +11,20 @@ RUN \
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
+# Create go user
+RUN useradd -ms /bin/bash go
+
+# Copy bash profile for go user
+COPY .bash_profile /home/go
+
+# Install vnext under go user
+USER go
+RUN bash -c "source $DNX_USER_HOME/dnvm/dnvm.sh \
+	&& dnvm install $DNX_VERSION -a default \
+	&& dnvm alias default | xargs -i ln -s $DNX_USER_HOME/runtimes/{} $DNX_USER_HOME/runtimes/default"
+
+USER root
+
 ENV GO_DOWNLOAD_URL http://download.go.cd/gocd-deb/go-agent-15.2.0-2248.deb
 
 RUN wget -O /tmp/go-agent.deb ${GO_DOWNLOAD_URL}

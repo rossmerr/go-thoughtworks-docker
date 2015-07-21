@@ -1,6 +1,15 @@
-FROM java:7
+FROM travcoltd/aspnet-grunt-docker
 
-ENV GO_DOWNLOAD_URL http://download01.thoughtworks.com/go/14.1.0/ga/go-agent-14.1.0-18882.deb
+# Install Java.
+RUN \
+  apt-get update && \
+  apt-get install -y openjdk-7-jre && \
+  rm -rf /var/lib/apt/lists/*
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
+ENV GO_DOWNLOAD_URL http://download.go.cd/gocd-deb/go-agent-15.2.0-2248.deb
 
 RUN wget -O /tmp/go-agent.deb ${GO_DOWNLOAD_URL}
 RUN dpkg -i /tmp/go-agent.deb

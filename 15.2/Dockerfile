@@ -3,7 +3,9 @@ FROM travcoltd/aspnet-grunt-docker
 # Install Java.
 RUN \
   apt-get update && \
-  apt-get install -y openjdk-7-jre && \
+  apt-get install -y \
+  openjdk-7-jre 
+  wget && \
   rm -rf /var/lib/apt/lists/*
 
 # Define commonly used JAVA_HOME variable

@@ -4,7 +4,7 @@ FROM travcoltd/aspnet-grunt-docker
 RUN \
   apt-get update && \
   apt-get install -y \
-  openjdk-7-jre 
+  openjdk-7-jre \
   wget && \
   rm -rf /var/lib/apt/lists/*
 

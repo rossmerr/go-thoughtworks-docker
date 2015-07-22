@@ -31,7 +31,9 @@ RUN sed -i 's/su -/su -p/' /etc/init.d/go-agent
 ENV GO_SERVER go-server
 
 # Setup DNVM for Go-Agent
-RUN chown -R go:go /opt/dnx/
+RUN useradd -ms /var/go go
+RUN chown -R go /opt/dnx/
+USER go
 RUN curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh 
 RUN dnvm install 1.0.0-beta4
 

@@ -1,0 +1,1 @@
+[ -s "/opt/dnx/dnvm/dnvm.sh" ] && . "/opt/dnx/dnvm/dnvm.sh" # Load dnvm

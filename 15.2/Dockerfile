@@ -30,10 +30,15 @@ RUN sed -i 's/su -/su -p/' /etc/init.d/go-agent
 # set GO_SERVER env variable to go-server (defined in /etc/hosts)
 ENV GO_SERVER go-server
 
-COPY .bashrc var/go/
-RUN chown go:go /var/go/.bashrc 
+# Setup DNVM for Go-Agent
+RUN chown -R go:go /opt/dnx/
+RUN curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh 
+RUN dnvm install 1.0.0-beta4
 
-COPY .bash_profile var/go/
-RUN chown go:go /var/go/.bash_profile 
+# COPY .bashrc var/go/
+# RUN chown go:go /var/go/.bashrc 
+
+# COPY .bash_profile var/go/
+# RUN chown go:go /var/go/.bash_profile 
 
 CMD su go -c '/etc/init.d/go-agent start'

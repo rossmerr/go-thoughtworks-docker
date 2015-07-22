@@ -33,4 +33,7 @@ ENV GO_SERVER go-server
 COPY .bashrc var/go/
 RUN chown go:go /var/go/.bashrc 
 
+COPY .bash_profile var/go/
+RUN chown go:go /var/go/.bash_profile 
+
 CMD su go -c '/etc/init.d/go-agent start'

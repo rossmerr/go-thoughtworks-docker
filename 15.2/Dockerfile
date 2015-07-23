@@ -28,6 +28,10 @@ RUN sed -i 's/su -/su -p/' /etc/init.d/go-agent
 # set GO_SERVER env variable to go-server (defined in /etc/hosts)
 ENV GO_SERVER go-server
 
+ADD autoregister.properties /var/lib/go-agent/config/
+
+RUN chown go /var/lib/go-agent/config/autoregister.properties
+
 USER go
 
 # Set the DNU PATH for the agent

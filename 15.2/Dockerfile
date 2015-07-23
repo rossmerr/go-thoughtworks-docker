@@ -32,11 +32,18 @@ RUN LIBUV_VERSION=1.4.2 \
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
+RUN echo PATH="/var/go/.dnx/runtimes/default/bin:/var/go/.dnx/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" > environment
+
+# set GO_SERVER env variable to go-server (defined in /etc/hosts)
+ENV GO_SERVER go-server
+
 ENV GO_DOWNLOAD_URL http://download.go.cd/gocd-deb/go-agent-15.2.0-2248.deb
 	
 RUN wget -O /tmp/go-agent.deb ${GO_DOWNLOAD_URL}
 RUN dpkg -i /tmp/go-agent.deb
 RUN rm -f /tmp/go-agent.deb
+
+
 
 # get rid of GO_SERVER AND GO_SERVER_PORT defaults. We'll use env variables.
 RUN sed -i '/.*GO_SERVER.*/d' /etc/default/go-agent
@@ -47,12 +54,8 @@ RUN sed -i 's/DAEMON=Y/DAEMON=N/' /etc/default/go-agent
 # make sure that init.d script passes through environment variables
 RUN sed -i 's/su -/su -p/' /etc/init.d/go-agent
 
-# set GO_SERVER env variable to go-server (defined in /etc/hosts)
-ENV GO_SERVER go-server
-
 USER go
 
-# RUN touch /var/go/.bash_profile
 RUN touch /var/go/.bashrc
 
 ENV DNX_VERSION 1.0.0-beta4
@@ -64,6 +67,6 @@ RUN bash -c "source $DNX_USER_HOME/dnvm/dnvm.sh \
 		&& dnvm alias default | xargs -i ln -s $DNX_USER_HOME/runtimes/{} $DNX_USER_HOME/runtimes/default"
 
 
-USER root 
+ENV PATH /var/go/.dnx/runtimes/default/bin:$PATH
 
-CMD su go -c '/etc/init.d/go-agent start'
+CMD /etc/init.d/go-agent start

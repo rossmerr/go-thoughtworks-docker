@@ -4,7 +4,7 @@ FROM travcoltd/aspnet-grunt-docker:1.0.0-beta4
 RUN \  
   apt-get update && \
   apt-get install -y \
-  openjdk-8-jre \
+  openjdk-6-jre \
   wget 
 
 # Define commonly used JAVA_HOME variable

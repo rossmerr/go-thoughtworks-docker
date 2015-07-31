@@ -1,8 +1,7 @@
-FROM travcoltd/aspnet-grunt-docker
+FROM travcoltd/aspnet-grunt-docker:1.0.0-beta4
 
 # Install Java.
 RUN \  
-  apt-get update && \
   apt-get install -y \
   openjdk-7-jre \
   wget && \

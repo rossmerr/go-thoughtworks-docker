@@ -17,7 +17,7 @@ RUN wget -O /tmp/go-agent.deb ${GO_DOWNLOAD_URL}
 RUN dpkg -i /tmp/go-agent.deb
 RUN rm -f /tmp/go-agent.deb
 
-# install docker so the go-agent and do docker build's
+# install docker so the go-agent can do docker build's
 RUN wget -qO- https://get.docker.com/ | sh
 
 # get rid of GO_SERVER AND GO_SERVER_PORT defaults. We'll use env variables.

@@ -4,8 +4,7 @@ FROM travcoltd/aspnet-grunt-docker:1.0.0-beta4
 RUN \  
   apt-get install -y \
   openjdk-7-jre \
-  wget && \
-  rm -rf /var/lib/apt/lists/*
+  wget 
 
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64

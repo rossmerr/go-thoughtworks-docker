@@ -1,11 +1,10 @@
 FROM travcoltd/aspnet-grunt-docker:1.0.0-beta4
 
-RUN deb http://security.debian.org/debian-security wheezy/updates main 
 # Install Java.
 RUN \  
   apt-get update && \
   apt-get install -y \
-  openjdk-7-jre \
+  openjdk-8-jre \
   wget 
 
 # Define commonly used JAVA_HOME variable
